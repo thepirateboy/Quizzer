@@ -33,11 +33,17 @@ class _BodyPageState extends State<BodyPage> {
   Question q1 = Question("www", true); //do nothing
 
   CheckAns(bool ans) {
-    if (ans == myQuizBrain.getAnswer()) {
-      print("Correct");
-    } else {
-      print("Wrong.");
-    }
+    setState(() {
+      if (ans == myQuizBrain.getAnswer()) {
+        print("Correct");
+        ScoreMark.add(Icon(Icons.check, color: Colors.green));
+      } else {
+        print("Wrong.");
+        ScoreMark.add(Icon(Icons.close, color: Colors.red));
+      }
+
+      myQuizBrain.nextQuestion();
+    });
   }
 
   QuizBrain myQuizBrain = QuizBrain();
@@ -73,16 +79,8 @@ class _BodyPageState extends State<BodyPage> {
                 style: TextStyle(fontSize: 20),
               ),
               onPressed: () {
-                setState(() {
-                  bool ans = true;
-                  CheckAns(ans);
-
-                  myQuizBrain.nextQuestion();
-                  ScoreMark.add(Icon(
-                    Icons.check,
-                    color: Colors.green,
-                  ));
-                });
+                bool ans = true;
+                CheckAns(ans);
               },
             ),
           ),
@@ -98,16 +96,8 @@ class _BodyPageState extends State<BodyPage> {
                 style: TextStyle(fontSize: 20),
               ),
               onPressed: () {
-                setState(() {
-                  bool ans = false;
-                  CheckAns(ans);
-
-                  myQuizBrain.nextQuestion();
-                  ScoreMark.add(Icon(
-                    Icons.close,
-                    color: Colors.red,
-                  ));
-                });
+                bool ans = false;
+                CheckAns(ans);
               },
             ),
           ),
