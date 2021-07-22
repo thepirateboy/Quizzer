@@ -27,18 +27,20 @@ class BodyPage extends StatefulWidget {
 
 class _BodyPageState extends State<BodyPage> {
   List<Icon> ScoreMark = [];
-  var QuestionNumber = 0;
+
   //List<Question> ListQuestion = QuizBrain().questionBank;
 
   Question q1 = Question("www", true); //do nothing
 
   CheckAns(bool ans) {
-    if (ans == QuizBrain().getAnswer(QuestionNumber)) {
+    if (ans == myQuizBrain.getAnswer()) {
       print("Correct");
     } else {
       print("Wrong.");
     }
   }
+
+  QuizBrain myQuizBrain = QuizBrain();
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +55,7 @@ class _BodyPageState extends State<BodyPage> {
             child: Center(
               child: Text(
                 // IF THE LIST IS PUBLIC YOU CAN USE: QuizBrain().questionBank[QuestionNumber].QuestionStr
-                QuizBrain().getQuestionStr(QuestionNumber),
+                myQuizBrain.getQuestionStr(),
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.white, fontSize: 25),
               ),
@@ -75,7 +77,7 @@ class _BodyPageState extends State<BodyPage> {
                   bool ans = true;
                   CheckAns(ans);
 
-                  QuestionNumber++;
+                  myQuizBrain.nextQuestion();
                   ScoreMark.add(Icon(
                     Icons.check,
                     color: Colors.green,
@@ -100,7 +102,7 @@ class _BodyPageState extends State<BodyPage> {
                   bool ans = false;
                   CheckAns(ans);
 
-                  QuestionNumber++;
+                  myQuizBrain.nextQuestion();
                   ScoreMark.add(Icon(
                     Icons.close,
                     color: Colors.red,
