@@ -11,19 +11,22 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         backgroundColor: Colors.grey[900],
         body: SafeArea(
-          child: bodyPage(),
+          child: BodyPage(),
         ),
       ),
     );
   }
 }
 
-class bodyPage extends StatefulWidget {
+class BodyPage extends StatefulWidget {
   @override
-  _bodyPageState createState() => _bodyPageState();
+  _BodyPageState createState() => _BodyPageState();
 }
 
-class _bodyPageState extends State<bodyPage> {
+class _BodyPageState extends State<BodyPage> {
+  List<Icon> ScoreMark = [];
+  List<String> Question = ["Question 1", "Question 2", "Question 3"];
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -52,7 +55,14 @@ class _bodyPageState extends State<bodyPage> {
                 "True",
                 style: TextStyle(fontSize: 20),
               ),
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  ScoreMark.add(Icon(
+                    Icons.check,
+                    color: Colors.green,
+                  ));
+                });
+              },
             ),
           ),
         ),
@@ -66,11 +76,21 @@ class _bodyPageState extends State<bodyPage> {
                 "False",
                 style: TextStyle(fontSize: 20),
               ),
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  ScoreMark.add(Icon(
+                    Icons.close,
+                    color: Colors.red,
+                  ));
+                });
+              },
             ),
           ),
         ),
-      ],
+        Row(
+          children: ScoreMark,
+        )
+      ], // children of column
     );
   }
 }
