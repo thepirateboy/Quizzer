@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:quizzer/question.dart';
+import 'package:quizzer/quizBrain.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,7 +27,18 @@ class BodyPage extends StatefulWidget {
 
 class _BodyPageState extends State<BodyPage> {
   List<Icon> ScoreMark = [];
-  List<String> Question = ["Question 1", "Question 2", "Question 3"];
+  var QuestionNumber = 0;
+  //List<Question> ListQuestion = QuizBrain().questionBank;
+
+  Question q1 = Question("www", true); //do nothing
+
+  CheckAns(bool ans) {
+    if (ans == QuizBrain().getAnswer(QuestionNumber)) {
+      print("Correct");
+    } else {
+      print("Wrong.");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +52,9 @@ class _BodyPageState extends State<BodyPage> {
             padding: EdgeInsets.all(10),
             child: Center(
               child: Text(
-                "Test",
+                // IF THE LIST IS PUBLIC YOU CAN USE: QuizBrain().questionBank[QuestionNumber].QuestionStr
+                QuizBrain().getQuestionStr(QuestionNumber),
+                textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.white, fontSize: 25),
               ),
             ),
@@ -57,6 +72,10 @@ class _BodyPageState extends State<BodyPage> {
               ),
               onPressed: () {
                 setState(() {
+                  bool ans = true;
+                  CheckAns(ans);
+
+                  QuestionNumber++;
                   ScoreMark.add(Icon(
                     Icons.check,
                     color: Colors.green,
@@ -78,6 +97,10 @@ class _BodyPageState extends State<BodyPage> {
               ),
               onPressed: () {
                 setState(() {
+                  bool ans = false;
+                  CheckAns(ans);
+
+                  QuestionNumber++;
                   ScoreMark.add(Icon(
                     Icons.close,
                     color: Colors.red,
