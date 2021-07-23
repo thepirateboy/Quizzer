@@ -3,8 +3,10 @@ class Question {
   late bool QuestionAns;
 
   //Constructor object
-  Question(String q, bool a) {
-    QuestionStr = q;
-    QuestionAns = a;
-  }
+  Question(this.QuestionStr, this.QuestionAns);
+
+  // Question(String q, bool a) {
+  //   QuestionStr = q;
+  //   QuestionAns = a;
+  // }
 }
